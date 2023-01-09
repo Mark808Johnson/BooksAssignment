@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
-namespace BooksAssignment.Models
+namespace BooksAssignment.Database.Models
 {
     public class Book
     {

@@ -1,4 +1,5 @@
-using BooksAssignment.Models;
+using BooksAssignment.Database.Models;
+using BooksAssignment.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register Books Service to use in Controller via Dependency Injection
+builder.Services.AddTransient<IBooksService, IBooksService>();
+
+// Register database
 builder.Services.AddDbContext<BooksContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
     );

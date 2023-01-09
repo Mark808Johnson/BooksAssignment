@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BooksAssignment.Models
+namespace BooksAssignment.Database.Models
 {
     public class BooksContext : DbContext
     {
@@ -9,7 +9,7 @@ namespace BooksAssignment.Models
         {
         }
 
-        public DbSet<Book> Books { get; set; } 
-     }
-   }
+        public DbSet<Book> Books { get; set; }
+    }
+}
 
