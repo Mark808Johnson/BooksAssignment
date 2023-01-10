@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BooksAssignment.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BooksAssignment.Database.Models
+namespace BooksAssignment.Data
 {
     public class BookEntityTypeConfiguration : IEntityTypeConfiguration<Book>
     {

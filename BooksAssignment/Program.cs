@@ -1,5 +1,4 @@
-using BooksAssignment.Database.Models;
-using BooksAssignment.Services;
+using BooksAssignment.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register Books Service to use in Controller via Dependency Injection
-builder.Services.AddTransient<IBooksService, IBooksService>();
+builder.Services.AddTransient<IBooksService, BooksService>();
 
 // Register database
 builder.Services.AddDbContext<BooksContext>(options =>
@@ -21,7 +20,7 @@ builder.Services.AddDbContext<BooksContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

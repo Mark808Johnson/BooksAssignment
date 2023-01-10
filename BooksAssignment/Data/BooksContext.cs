@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BooksAssignment.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BooksAssignment.Database.Models
+namespace BooksAssignment.Data
 {
     public class BooksContext : DbContext
     {

@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-
-namespace BooksAssignment.Database.Models
+﻿namespace BooksAssignment.Models
 {
+    //domain object representation
     public class Book
     {
         public int Id { get; set; }
