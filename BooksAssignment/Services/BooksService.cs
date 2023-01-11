@@ -1,10 +1,8 @@
-﻿using BooksAssignment.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using BooksAssignment.Data;
+using BooksAssignment.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-
-namespace BooksAssignment.Data
+namespace BooksAssignment.Services
 {
     public class BooksService : IBooksService
     {
@@ -20,7 +18,7 @@ namespace BooksAssignment.Data
             var books = await _dbContext.Books
                 .Where(x => x.Title == title && x.Author == author && x.Year == year)
                 .ToListAsync();
-                
+
             bool duplicateBook = books.Any();
 
             if (duplicateBook)
@@ -40,15 +38,14 @@ namespace BooksAssignment.Data
             await _dbContext.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
 
-            var result = new AddBookResponse { Id = newBook.Id};
-
+            var result = new AddBookResponse { Id = newBook.Id };
 
             return result;
         }
 
         public async Task<IEnumerable<BookDto>> GetBooks(string? author, int? year, string? publisher)
         {
-            var booksByFilter= await _dbContext.Books
+            var booksByFilter = await _dbContext.Books
                 .Where(x => x.Author == author || author == null)
                 .Where(x => x.Year == year || year == null)
                 .Where(x => x.Publisher == publisher || publisher == null)
@@ -90,7 +87,7 @@ namespace BooksAssignment.Data
             }
 
             var bookToDelete = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == idInteger);
-            
+
             if (bookToDelete == null)
             {
                 throw new Exception("Book with given Id not found in database");

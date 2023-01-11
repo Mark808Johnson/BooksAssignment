@@ -1,4 +1,6 @@
-﻿namespace BooksAssignment.Data
+﻿using BooksAssignment.Data;
+
+namespace BooksAssignment.Services
 {
     public interface IBooksService
     {
