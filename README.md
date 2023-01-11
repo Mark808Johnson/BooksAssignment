@@ -26,12 +26,12 @@ Optional:
 - API endpoints tested via Swagger
 
 ## Install
-1) Clone this repo to your Windows machine.
+1) Clone this repository to your computer.
 2) Install .NET Core 7.0 SDK (https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
 3) Run ``dotnet run`` and visit either https://localhost:9000/swagger/index.html or https://localhost:9000/books on your browser. 
 
 ## Additional
 - An empty books.db file is already included in the project solution. You can create a new instance of this database by- 
-1) Remove the db and temporary files
+1) Removing books.db along with the temporary db-wal/db-shm files from the solution.
 2) Running ``dotnet ef database update``.
 
