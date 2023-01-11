@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register Books Service to use in Controller via Dependency Injection
+// Register Books Service to use via Dependency Injection
 builder.Services.AddTransient<IBooksService, BooksService>();
 
 // Register database

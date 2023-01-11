@@ -1,9 +1,6 @@
-﻿using BooksAssignment.Dtos;
-using BooksAssignment.Models;
+﻿using BooksAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ServiceStack.Host;
-using ServiceStack.Html;
 using System.Linq;
 
 
@@ -18,7 +15,7 @@ namespace BooksAssignment.Data
             _dbContext = dbContext;
         }
 
-        public async Task<AddBookResponseDto> AddNewBook(string title, string author, int year, string? publisher, string? description)
+        public async Task<AddBookResponse> AddNewBook(string title, string author, int year, string? publisher, string? description)
         {
             var books = await _dbContext.Books
                 .Where(x => x.Title == title && x.Author == author && x.Year == year)
@@ -28,7 +25,7 @@ namespace BooksAssignment.Data
 
             if (duplicateBook)
             {
-                throw new HttpException(404, "Forbidden- duplicate book found in database");
+                throw new Exception("Cannot add requested book as duplicate has been found in the database");
             }
 
             var newBook = new Book
@@ -43,7 +40,10 @@ namespace BooksAssignment.Data
             await _dbContext.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
 
-            return new AddBookResponseDto { Id = newBook.Id };
+            var result = new AddBookResponse { Id = newBook.Id};
+
+
+            return result;
         }
 
         public async Task<IEnumerable<BookDto>> GetBooks(string? author, int? year, string? publisher)

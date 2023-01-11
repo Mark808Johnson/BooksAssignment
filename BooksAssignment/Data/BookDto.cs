@@ -1,6 +1,6 @@
 ﻿using BooksAssignment.Models;
 
-namespace BooksAssignment.Dtos
+namespace BooksAssignment.Data
 {
     public class BookDto
     {

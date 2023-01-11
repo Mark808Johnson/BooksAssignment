@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\RequestModels\**" />
-    <Content Remove="Controllers\RequestModels\**" />
-    <EmbeddedResource Remove="Controllers\RequestModels\**" />
-    <None Remove="Controllers\RequestModels\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
