@@ -8,6 +8,6 @@ namespace BooksAssignment.Dtos
         public string? Author { get; set; }
         public int? Year { get; set; }
         [MinLength(1)]
-        public string? Title { get; set; }
+        public string? Publisher { get; set; }
     }
 }

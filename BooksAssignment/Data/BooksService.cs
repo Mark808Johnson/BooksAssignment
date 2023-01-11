@@ -3,6 +3,7 @@ using BooksAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceStack.Host;
+using ServiceStack.Html;
 using System.Linq;
 
 
@@ -27,7 +28,7 @@ namespace BooksAssignment.Data
 
             if (duplicateBook)
             {
-                throw new HttpException(400, "Bad Request");
+                throw new HttpException(404, "Forbidden- duplicate book found in database");
             }
 
             var newBook = new Book
@@ -45,7 +46,7 @@ namespace BooksAssignment.Data
             return new AddBookResponseDto { Id = newBook.Id };
         }
 
-        public async Task<IEnumerable<BookDto>> GetMultipleBooks(string? author, int? year, string? publisher)
+        public async Task<IEnumerable<BookDto>> GetBooks(string? author, int? year, string? publisher)
         {
             var booksByFilter= await _dbContext.Books
                 .Where(x => x.Author == author || author == null)
@@ -58,13 +59,20 @@ namespace BooksAssignment.Data
             return result;
         }
 
-        public async Task<BookDto> GetSingleBook(int id)
+        public async Task<BookDto> GetBookById(string id)
         {
-            var bookById = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
+            var isIdInteger = int.TryParse(id, out int idInteger);
+
+            if (!isIdInteger)
+            {
+                throw new Exception("Id must be an integer number");
+            }
+
+            var bookById = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == idInteger);
 
             if (bookById == null)
             {
-                throw new HttpException(404, "Not Found");
+                throw new Exception("Book with given Id not found in database");
             }
 
             var result = BookDto.CreateFromBook(bookById);
@@ -72,19 +80,29 @@ namespace BooksAssignment.Data
             return result;
         }
 
-        public async Task DeleteBook(int id)
+        public async Task DeleteBookById(string id)
         {
-            var bookToDelete = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == id);
+            var isIdInteger = int.TryParse(id, out int idInteger);
+
+            if (!isIdInteger)
+            {
+                throw new Exception("Id must be provided as a whole number");
+            }
+
+            var bookToDelete = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == idInteger);
             
             if (bookToDelete == null)
             {
-                throw new HttpException(404, "Not Found");
+                throw new Exception("Book with given Id not found in database");
             }
 
             _dbContext.Books.Remove(bookToDelete);
             await _dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Helper function to convert list of Book class entities to corresponding Dto List
+        /// </summary>
         public List<BookDto> ConvertToDtoList(List<Book> booksList)
         {
             var bookDtoList = new List<BookDto>();
